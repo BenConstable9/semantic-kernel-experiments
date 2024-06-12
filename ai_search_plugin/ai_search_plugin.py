@@ -41,11 +41,12 @@ class AISearchPlugin:
         )
 
         vector_query = VectorizableTextQuery(
-            text=text, k_nearest_neighbors=3, fields="title_vector,content_vector"
+            text=text, k_nearest_neighbors=5, fields="title_vector,content_vector"
         )
 
         results = await search_client.search(
-            query_type="hybrid",
+            top=2,
+            query_type="semantic",
             semantic_configuration_name="< YOUR SEMANTIC CONFIG NAME >",
             search_text=text,
             select="< FIELDS TO RETURN e.g. title,chunk>",
