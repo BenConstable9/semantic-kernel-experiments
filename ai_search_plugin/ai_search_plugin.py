@@ -2,6 +2,7 @@ from semantic_kernel.functions import kernel_function
 from typing import Annotated
 from azure.core.credentials import AzureKeyCredential
 
+from azure.search.documents.models import VectorizableTextQuery
 from azure.search.documents.aio import SearchClient
 import os
 
@@ -14,7 +15,7 @@ class AISearchPlugin:
         return """Use the AI Search to return documents that have been indexed, that might be relevant for a piece of text to aid understanding. Documents ingested here could be relevant to anything, so AI Search should always be used. Always provide references to any documents you use."""
 
     @kernel_function(
-        description="Runs an semantic search against some text to return relevant documents that are indexed within AI Search.",
+        description="Runs an hybrid semantic search against some text to return relevant documents that are indexed within AI Search.",
         name="RunAISearchOnText",
     )
     async def run_ai_search_on_text(
@@ -39,11 +40,16 @@ class AISearchPlugin:
             credential=credential,
         )
 
+        vector_query = VectorizableTextQuery(
+            text=text, k_nearest_neighbors=3, fields="title_vector,content_vector"
+        )
+
         results = await search_client.search(
-            query_type="semantic",
+            query_type="hybrid",
             semantic_configuration_name="< YOUR SEMANTIC CONFIG NAME >",
             search_text=text,
             select="< FIELDS TO RETURN e.g. title,chunk>",
+            vector_queries=[vector_query],
         )
 
         documents = [

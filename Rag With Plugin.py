@@ -5,7 +5,7 @@
 # COMMAND ----------
 
 # MAGIC %pip install azure-search
-# MAGIC %pip install azure-search-documents
+# MAGIC %pip install azure-search-documents==11.6.0b3
 # MAGIC %pip install aioodbc
 
 # COMMAND ----------
