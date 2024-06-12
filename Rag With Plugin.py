@@ -75,7 +75,6 @@ SQL Database Information:
 User Question:
 {question}"""
 
-question = "Find 5 of the different categories that exist within the sales data."
 response = await planner.invoke(kernel, full_prompt)
 
 # COMMAND ----------
