@@ -39,7 +39,7 @@ class SQLPlugin:
         Returns:
             list: The results of the query run against the DB in dictionary format."""
 
-        connection_string = os.environ["SQL_CONNECTION STRING"]
+        connection_string = os.environ["SQL_CONNECTION_STRING"]
 
         async with await aioodbc.connect(dsn=connection_string) as sql_db_client:
             async with sql_db_client.cursor() as cursor:
