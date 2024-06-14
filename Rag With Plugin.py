@@ -40,7 +40,7 @@ service_id = "gpt-4"
 
 # When using data, use the 2024-02-15-preview API version.
 chat_service = AzureChatCompletion(
-    service_id="chat-gpt",
+    service_id=service_id,
     deployment_name="gpt-4",
     endpoint="ENDPOINT",
     api_key="API KEY",
